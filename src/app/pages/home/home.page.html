@@ -1,0 +1,34 @@
+<ion-content class="ion-text-center">
+    <div *ngIf="auth.user$ | async as user else login">
+        <ion-avatar>
+            <img [src]="user.photo">
+        </ion-avatar>
+        <h1 class="user-name">{{ user.name }}</h1>
+        <p>{{ user.email }}</p>
+        <p class="user-uid">{{ user.uid }}</p>
+        <p class="user-provider">
+            <ion-icon *ngIf="user.provider === 'facebook.com'" name="logo-facebook" color="primary"></ion-icon>
+            <ion-icon *ngIf="user.provider === 'google.com'" name="logo-google" color="danger"></ion-icon>
+            <ion-icon *ngIf="user.provider === 'twitter.com'" name="logo-twitter" color="secondary"></ion-icon>
+        </p>
+
+
+        <ion-button (click)="auth.signOut()" size="small" color="medium">Sign Out</ion-button>
+    </div>
+    <ng-template #login>
+        <h1 class="logo">Fire Auth</h1>
+
+        <div class="ion-padding">
+            <ion-button (click)="auth.googleSignin()" size="large" expand="block" color="danger">
+                Google Login
+            </ion-button>
+            <ion-button (click)="auth.facebookSignin()" size="large" expand="block" color="primary">
+                Facebook Login
+            </ion-button>
+            <ion-button (click)="auth.twitterSignin()" size="large" expand="block" color="secondary">
+                Twitter Login
+            </ion-button>
+        </div>
+
+    </ng-template>
+</ion-content>
